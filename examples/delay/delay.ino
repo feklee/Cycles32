@@ -6,7 +6,7 @@ void setup() {
 }
 
 void loop() {
-  static const unsigned long delayDuration = 1000; // ms
+  static const unsigned long delayDuration = 100000; // ms
   static const float expectedCycles = float(F_CPU) * delayDuration / 1000;
 
   uint32_t cyclesAtStart = Cycles32::now();
