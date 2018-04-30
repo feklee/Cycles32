@@ -1,7 +1,7 @@
 Introduction
 ============
 
-*Cycles16* is an Arduino library for measuring clock cycles with Timer2 and a 16
+*Cycles16* is an Arduino library for measuring clock cycles with Timer1 and a 32
 bit counter.
 
 The overhead in cycles introduced by function calls is not taken into account.
