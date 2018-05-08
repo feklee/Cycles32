@@ -1,12 +1,19 @@
 #include "Cycles32.h"
+#include <util/atomic.h>
 
 static volatile uint32_t timer1OverflowCount = 0;
 
 uint32_t Cycles32::now() {
-  uint32_t c = timer1OverflowCount;
-  c <<= 16;
-  c += TCNT1;
-  return c;
+  uint32_t oc, c;
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+    // Atomic block is necessary to avoid interrupts from interfering with
+    // TEMP register while reading 16 bit counter.
+    c = TCNT1;
+  }
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+    oc = timer1OverflowCount;
+  }
+  return (oc << 16) + c;
 }
 
 uint32_t Cycles32::elapsed(uint32_t cyclesAtStart, uint32_t cyclesAtEnd) {

@@ -1,12 +1,12 @@
 Introduction
 ============
 
-*Cycles32* is an Arduino library for measuring clock cycles with Timer1 and a 32
-bit counter.
+*Cycles32* is an Arduino library for measuring clock cycles at 32 bit
+resolution. It uses the 16 bit Timer/Counter1 on an ATmega328.
 
 The overhead in cycles introduced by function calls is not taken into account.
 
-Tested with the Arduino Pro Mini ATmega328P (5V, 16MHz).
+Tested with the Arduino Pro Mini ATmega328 (5V, 16MHz).
 
 
 License
