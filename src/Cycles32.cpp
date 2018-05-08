@@ -7,7 +7,7 @@ uint32_t Cycles32::now() {
   uint32_t oc, c;
   ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
     // Atomic block is necessary to avoid interrupts from interfering with
-    // TEMP register while reading 16 bit counter.
+    // `TEMP` register while reading 16 bit counter.
     c = TCNT1;
   }
   ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
