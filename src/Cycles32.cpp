@@ -6,11 +6,13 @@ static volatile uint32_t timer1OverflowCount = 0;
 uint32_t Cycles32::now() {
   uint32_t oc, c;
   ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-    // Atomic block is necessary to avoid interrupts from interfering with
-    // `TEMP` register while reading 16 bit counter.
-    c = TCNT1;
-  }
-  ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+    c = TCNT1; // TCNT1 increases all the time during the following instructions
+    bool timerDidOverflow = TIFR1 & 1; // TOV1 Timer/Counter 1, Overflow Flag
+    byte msb = c >> 15;
+    if (msb == 0 && timerDidOverflow) {
+      timer1OverflowCount ++;
+      TIFR1 &= 1; // Write to TOV1 to clear it and prevent triggering TIMER1_OVF
+    }
     oc = timer1OverflowCount;
   }
   return (oc << 16) + c;
