@@ -3,6 +3,7 @@
 
 static volatile uint32_t timer1OverflowCount = 0;
 
+// See also: https://electronics.stackexchange.com/q/372304/21817
 uint32_t Cycles32::now() {
   uint32_t oc, c;
   ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
