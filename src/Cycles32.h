@@ -7,8 +7,6 @@
 #warning "This library has not been tested with your board."
 #endif
 
-#include "Arduino.h"
-
 class Cycles32 {
 private:
   static void startTimer1();
